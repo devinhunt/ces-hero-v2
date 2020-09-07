@@ -3,6 +3,7 @@ import React from 'react'
 import SparkLine from '../charts/SparkLine'
 import LabeledDataFrame from './LabeledDataFrame'
 import Title from './Title'
+import ColorDot from './ColorDot'
 import { Row, Col } from './Grid'
 
 import { scoreToLabel, scoreToColor } from '../data/constants'
@@ -39,7 +40,13 @@ const StateTooltip = ({ data, x = 0, y = 0, width = 380, xRange = null }) => {
       <div style={headerStyle}>
         <Row>
           <Col>
-            <div style={titleStyle}>{_d('STATE')}</div>
+            <div style={titleStyle}>
+              <ColorDot 
+                color={ scoreToColor[_d('GATING SCORE')] } 
+                flashing={ _d('GATING SCORE') != 0 }
+              />
+              {_d('STATE')}
+            </div>
           </Col>
           <Col>
             <div style={{fontSize: '10px', color: '#aaa', textAlign: 'right', lineHeight: '20px'}}>Tap for details</div>
