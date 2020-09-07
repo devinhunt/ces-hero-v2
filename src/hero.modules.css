@@ -5,12 +5,11 @@
 }
 
 .StateTooltip {
+  box-sizing: border-box;
   position: absolute;
   background: white;
   backface-visibility: hidden;
   pointer-events: none;
-
-  width: 360px;
   transform: translate3d(-50%, 10px, 0);
 
   padding: 10px;
@@ -84,8 +83,9 @@
 .Modal {
   position: absolute;
 
-  right: 20px;
-  bottom: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
 
   padding: 10px;
   border-radius: 3px;
@@ -95,6 +95,7 @@
 
 .Modal > header {
   display: flex;
+  border-bottom: 1px solid #eee;
 }
 
 .Modal > header > h1 {
@@ -119,4 +120,17 @@
   stroke: rgba(0, 0, 0, .5);
   stroke-width: 1;
   stroke-dasharray: 4px 4px;
+}
+
+.AnnotationLabel {
+  font-size: 10px;
+  font-weight: 400;
+  text-anchor: middle;
+  transform: translate(0, 10px);
+  background: white;
+}
+
+.AnnotationLine {
+  stroke: rgba(0, 0, 0, .4);
+  stroke-width: 1;
 }

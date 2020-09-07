@@ -40,7 +40,7 @@ const USMap = ({data, setHoverStateId, setFocusedStateId}) => {
     })
 
     return (
-      <g /*onMouseLeave={() => setLocalHoverId(null)}*/>
+      <g onMouseLeave={() => setLocalHoverId(null)}>
         <g>
           {states.features.map( state => (
             <path 

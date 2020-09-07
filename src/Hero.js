@@ -1,12 +1,12 @@
 import 'regenerator-runtime/runtime'
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react'
 
 import { useStateCovidData, idToStateData } from './data/stateCovidDataService'
 import { useTrendData } from './data/stateTrendDataService'
 import { usePolicyData } from './data/policyDataService'
 
 import USMap from './charts/USMap'
-import StateTooltip from './StateTooltip'
+import StateTooltip from './components/StateTooltip'
 import PolicyChart from './charts/PolicyChart'
 import Modal from './layout/Modal'
 
@@ -20,7 +20,7 @@ const Hero = () => {
   const [hoverStateId, setHoverStateId] = useState(null)
   const hoverStateData = hoverStateId ? idToStateData(hoverStateId, stateData) : null
 
-  const [focusedStateId, setFocusedStateId] = useState(8)
+  const [focusedStateId, setFocusedStateId] = useState(null)
 
   const focusedData = useMemo(() => {
     if(isTrendDataLoading || isPolicyDataLoading || focusedStateId === null) {
@@ -49,12 +49,38 @@ const Hero = () => {
     }
   }, [])
 
-  return (<div className={styles.root}>
-    { hoverStateData && 
-      (<StateTooltip data={hoverStateData} x={mousePosition.x} y={mousePosition.y} />)} 
+  // Metrics for sizing various things
+  const heroRef = useRef()
+  const [metrics, setMetrics] = useState({})
+  useLayoutEffect( () => {
+    setMetrics(heroRef.current.getBoundingClientRect().toJSON())
+  }, [heroRef.current] )
+
+  useEffect( () => {
+    const onResize = () => {
+      setMetrics(heroRef.current.getBoundingClientRect().toJSON())
+    }
+
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [heroRef])
+
+  console.log(metrics)
+
+  return (<div className={styles.root} ref={heroRef}>
+    {(hoverStateData && focusedData == null) && (
+      <StateTooltip 
+        data={hoverStateData} 
+        x={mousePosition.x} 
+        y={mousePosition.y}
+        xRange={[metrics.left, metrics.right]} />
+    )} 
 
     {focusedData && (
-      <Modal title={`Detail of ${focusedData.rollup.STATE}`} onClose={ () => setFocusedStateId(null) }>
+      <Modal title={`History of cases in ${focusedData.rollup.STATE}`} onClose={ () => setFocusedStateId(null) }>
         <PolicyChart 
           rawCasesSeries={focusedData.casesRaw}
           trendCasesSeries={focusedData.casesSpline}

@@ -3,6 +3,7 @@ import { scaleTime } from 'd3'
 import CasesChart from './CasesChart'
 import PositivityChart from './PositivityChart'
 import DateAxis from './DateAxis'
+import ChartAnnotation from './ChartAnnotation'
 
 const PolicyChart = ({
   rawCasesSeries, 
@@ -43,22 +44,7 @@ const PolicyChart = ({
         <DateAxis domain={[dateStart, dateEnd]} range={[10, width - 10]} />
       </g>
       { policyData.policyExists && (
-        <g>
-          <line
-            x1={xScale(policyData.enacted)}
-            y1={0}
-            x2={xScale(policyData.enacted)}
-            y2={400}
-            stroke="black"
-          />
-          <line
-            x1={xScale(policyData.expiry)}
-            y1={0}
-            x2={xScale(policyData.expiry)}
-            y2={400}
-            stroke="black"
-          />
-        </g>
+        <ChartAnnotation label="Masks mandated" x={ xScale(policyData.enacted) } height={ height * .9 } />
       )}
     </svg>
   )

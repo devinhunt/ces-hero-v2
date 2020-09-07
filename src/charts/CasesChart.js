@@ -15,7 +15,7 @@ const CasesChart = ({
     left: 10,
     right: 10,
     top: 10,
-    bottom: 10,
+    bottom: 0,
   }
 }) => {
   
@@ -69,6 +69,7 @@ const CasesChart = ({
       <Fragment>
         <g transform={`translate(${0}, ${y(0)})`}>
           <text className={styles.AxisText} x={margin.left} y={-4}>0 cases</text>
+          <line className={styles.AxisMidpointLine} x1={margin.left} x2={width - margin.right} y1={0} y2={0} />
         </g>
         <g transform={`translate(${0}, ${y(rawDataMidPoint)})`}>
           <text className={styles.AxisText} x={margin.left} y={-4}>{rawDataMidPoint} cases</text>
@@ -84,8 +85,8 @@ const CasesChart = ({
       <text x="15" y="8" className={styles.AxisText}>{ rawDataLabel }</text>
       {trendDataLabel && (
         <Fragment>
-          <line x1="0" x2="10" y1="25" y2="25" fill="none" stroke="rgba(255, 100, 100, .9)" strokeWidth="1.5" />
-          <text x="15" y="28" className={styles.AxisText}>{ trendDataLabel }</text>
+          <line x1="0" x2="10" y1="20" y2="20" fill="none" stroke="rgba(255, 100, 100, .9)" strokeWidth="1.5" />
+          <text x="15" y="23" className={styles.AxisText}>{ trendDataLabel }</text>
         </Fragment>
       )}
     </g>
