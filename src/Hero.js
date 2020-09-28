@@ -9,6 +9,7 @@ import USMap from './charts/USMap'
 import StateTooltip from './components/StateTooltip'
 import PolicyChart from './charts/PolicyChart'
 import Modal from './layout/Modal'
+import DataLoading from './components/DataLoading'
 
 import styles from './hero.modules.css'
 
@@ -68,19 +69,21 @@ const Hero = () => {
     }
   }, [heroRef])
 
-  console.log(metrics)
-
   return (<div className={styles.root} ref={heroRef}>
     {(hoverStateData && focusedData == null) && (
       <StateTooltip 
         data={hoverStateData} 
         x={mousePosition.x} 
         y={mousePosition.y}
-        xRange={[metrics.left, metrics.right]} />
+        xRange={[metrics.left, metrics.right]} 
+      />
     )} 
 
     {focusedData && (
-      <Modal title={`History of cases in ${focusedData.rollup.STATE}`} onClose={ () => setFocusedStateId(null) }>
+      <Modal 
+        title={`History of cases in ${focusedData.rollup.STATE}`} 
+        onClose={ () => setFocusedStateId(null) }
+      >
         <PolicyChart 
           rawCasesSeries={focusedData.casesRaw}
           trendCasesSeries={focusedData.casesSpline}
@@ -91,8 +94,8 @@ const Hero = () => {
     )}
 
     
-    { isStateDataLoading ? (
-      <p>Loading state data</p>
+    { isStateDataLoading || isTrendDataLoading ? (
+      <DataLoading />
     ):(
       <USMap data={stateData} setHoverStateId={setHoverStateId} setFocusedStateId={setFocusedStateId}/>
     )}

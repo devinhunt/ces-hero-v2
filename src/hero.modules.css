@@ -154,10 +154,38 @@
 
 @keyframes animColorDotFlashing {
   from {
-    opacity: 100%;
+    opacity: 1;
   }
 
   to {
-    opacity: 0%;
+    opacity: 0;
+  }
+}
+
+.USMapState {
+  cursor: pointer;
+}
+
+.DataLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 200px;
+}
+
+.DataLoadingSpinner {
+  border: 2px solid #223;
+  border-right-color: transparent;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: spinner .75s linear infinite;
+  margin: 10px auto;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
   }
 }

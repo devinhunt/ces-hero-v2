@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { scaleLinear, scaleBand, range, max, line } from 'd3'
+import { scaleLinear, scaleBand, range, max, min } from 'd3'
 
 import PositivityLegend from './PositivityLegend'
 
@@ -7,6 +7,8 @@ import styles from '../hero.modules.css'
 
 import { roundToPercision } from '../data/utilities'
 import { DEEP_RED, RED, YELLOW, GREEN } from '../data/constants'
+
+const MAX_POSITIVITY = .35
 
 const PositivityChart = ({
   rawData,
@@ -26,7 +28,7 @@ const PositivityChart = ({
     .range([margin.left, width - margin.right])
     .padding(0.1)
 
-  const rawDataMax = max(rawData, d => d.value)
+  const rawDataMax = min([max(rawData, d => d.value), MAX_POSITIVITY])
   
   const y = scaleLinear()
     .domain([0, max([rawDataMax, .2])])
@@ -49,15 +51,16 @@ const PositivityChart = ({
     return GREEN
   }
 
+
   return (
     <g>
       {rawData.map( (datum, index) => (
         <rect
           key={index}
           width={ xBand.bandwidth() } 
-          height={ y(0) - y(datum.value || 0) }
+          height={ y(0) - y(min([datum.value || 0, MAX_POSITIVITY])) }
           x={ xBand(index) }
-          y={ y(datum.value) }
+          y={ y(min([datum.value, MAX_POSITIVITY])) }
           fill={ colorForRate(datum.value) }
         />
       ))}

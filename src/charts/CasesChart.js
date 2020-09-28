@@ -52,8 +52,6 @@ const CasesChart = ({
       x: xBand(dataIndex),
       y: y(rawData[dataIndex].value)
     }
-
-    console.log(dataIndex, rawData, rawData[dataIndex])
     
     return (
       <g transform={`translate(${target.x}, ${target.y})`}>

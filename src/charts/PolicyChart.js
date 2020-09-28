@@ -13,7 +13,6 @@ const PolicyChart = ({
   width = 800,
   height = 300,
 }) => {
-  console.log(policyData)
   const dateEnd = rawCasesSeries[rawCasesSeries.length - 1].date
   const dateStart = rawCasesSeries[0].date
   

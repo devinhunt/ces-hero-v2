@@ -6,6 +6,10 @@ import { getUsMapData } from '../data/usAtlasService'
 import { scoreToColor } from '../data/colors'
 import { idToStateData } from '../data/stateCovidDataService'
 
+import DataLoading from '../components/DataLoading'
+
+import styles from '../hero.modules.css'
+
 const USMap = ({data, setHoverStateId, setFocusedStateId}) => {
   const [mapData, setMapData] = useState({})
   const [localHoverId, setLocalHoverId] = useState(null)
@@ -44,6 +48,7 @@ const USMap = ({data, setHoverStateId, setFocusedStateId}) => {
         <g>
           {states.features.map( state => (
             <path 
+              className={ styles.USMapState }
               key={ state.id }
               onClick= { () => setFocusedStateId(state.id) }
               onMouseEnter={ () => setLocalHoverId(state.id) }
@@ -67,7 +72,7 @@ const USMap = ({data, setHoverStateId, setFocusedStateId}) => {
   return (
     <svg viewBox="-50 0 1050 700">
       {isMapDataLoading ? (
-        <text y="100">Map is loading</text>
+        <DataLoading />
       ) : (
         renderMap()
       )}
