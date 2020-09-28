@@ -25,6 +25,7 @@
   background: #eee;
   padding: 10px;
   margin: 0;
+  line-height: 12px;
 }
 
 .Button:hover {
@@ -101,6 +102,7 @@
 
 .Modal > header {
   display: flex;
+  align-items: start;
   border-bottom: 1px solid #eee;
 }
 
