@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "parcel index.html",
     "prebuild": "rm -rf dist",
-    "build": "parcel build index.html"
+    "build": "parcel build src/index.js",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "topojson": "^3.0.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
