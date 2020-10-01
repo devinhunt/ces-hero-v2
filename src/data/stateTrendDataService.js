@@ -13,13 +13,17 @@ export const useTrendData = () => {
     const fetchData = async () => {
       const response = await csv(SOURCE_URL, autoType)
 
+      console.log(response)
+
+      const safariDatePatch = date => new Date(date.replace(/ /g, 'T'))
+
       let trendData = response.map( (state) => ({
         'name': state.State,
         'id': +stateNameToFips(state.State),
         'date': new Date(state.date),
-        'casesRaw': groupTrendByISODate(state, new Date(state.date), 'cases-per-million-raw-'),
-        'casesSpline': groupTrendByISODate(state, new Date(state.date), 'cases-per-million-3dcs-'),
-        'positivitySpline': groupTrendByISODate(state, new Date(state.date), 'positivity-3dcs-'),
+        'casesRaw': groupTrendByISODate(state, safariDatePatch(state.date), 'cases-per-million-raw-'),
+        'casesSpline': groupTrendByISODate(state, safariDatePatch(state.date), 'cases-per-million-3dcs-'),
+        'positivitySpline': groupTrendByISODate(state, safariDatePatch(state.date), 'positivity-3dcs-'),
       }))
 
       // Data from Feb 1st hack

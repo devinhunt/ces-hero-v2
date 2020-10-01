@@ -24,6 +24,8 @@ export const groupTrendByISODate = (data, startDate, prefix = '', step = 24 * 60
   let targetDate = startDate
   const trend = []
 
+  console.log('start at: ',startDate)
+
   while(getKey(targetDate) in data) {
     trend.push({
       date: targetDate,

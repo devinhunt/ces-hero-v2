@@ -38,17 +38,6 @@ const Hero = () => {
       policy: policyData.filter( obj => obj.id == focusedStateId )[0]
     }
   }, [focusedStateId, isTrendDataLoading, isPolicyDataLoading])
-  
-  const [mousePosition, setMousePosition] = useState({x: null, y: null})
-  const updateMousePosition = event => {
-    setMousePosition({ x: event.clientX, y: event.clientY })
-  }
-  useEffect( () => {
-    document.addEventListener('mousemove', updateMousePosition)
-    return () => {
-      document.removeEventListener('mousemove', updateMousePosition)
-    }
-  }, [])
 
   // Metrics for sizing various things
   const heroRef = useRef()
@@ -68,6 +57,18 @@ const Hero = () => {
       window.removeEventListener('resize', onResize)
     }
   }, [heroRef])
+
+  const [mousePosition, setMousePosition] = useState({x: null, y: null})
+  const updateMousePosition = event => {
+    const bounds = heroRef.current.getBoundingClientRect()
+    setMousePosition({ x: event.clientX - bounds.left, y: event.clientY - bounds.top })
+  }
+  useEffect( () => {
+    document.addEventListener('mousemove', updateMousePosition)
+    return () => {
+      document.removeEventListener('mousemove', updateMousePosition)
+    }
+  }, [])
 
   return (<div className={styles.root} ref={heroRef}>
     {(hoverStateData && focusedData == null) && (
