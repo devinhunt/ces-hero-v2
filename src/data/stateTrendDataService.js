@@ -13,8 +13,6 @@ export const useTrendData = () => {
     const fetchData = async () => {
       const response = await csv(SOURCE_URL, autoType)
 
-      console.log(response)
-
       const safariDatePatch = date => new Date(date.replace(/ /g, 'T'))
 
       let trendData = response.map( (state) => ({
