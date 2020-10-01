@@ -76,7 +76,7 @@ const Hero = () => {
         data={hoverStateData} 
         x={mousePosition.x} 
         y={mousePosition.y}
-        xRange={[metrics.left, metrics.right]} 
+        xRange={[0, metrics.width]} 
       />
     )} 
 
