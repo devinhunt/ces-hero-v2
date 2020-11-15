@@ -42,9 +42,6 @@ const PolicyChart = ({
       <g transform={`translate(0, ${height * .9})`}>
         <DateAxis domain={[dateStart, dateEnd]} range={[10, width - 10]} />
       </g>
-      { policyData.policyExists && (
-        <ChartAnnotation label="Masks mandated" x={ xScale(policyData.enacted) } height={ height * .9 } />
-      )}
     </svg>
   )
 }
