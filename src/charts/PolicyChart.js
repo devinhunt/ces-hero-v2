@@ -3,7 +3,6 @@ import { scaleTime } from 'd3'
 import CasesChart from './CasesChart'
 import PositivityChart from './PositivityChart'
 import DateAxis from './DateAxis'
-import ChartAnnotation from './ChartAnnotation'
 
 const PolicyChart = ({
   rawCasesSeries, 
